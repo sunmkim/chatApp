@@ -8,10 +8,9 @@ app.get('/', function(req, res){
 
 // listen on connection event for incoming sockets
 io.on('connection', function(socket){
-  console.log('a user has connected');
   // on incoming 'chat message' event, console.log message
   socket.on('chat message', function(msg){
-    console.log('message: ' + msg);
+    io.emit('chat message', msg);
   });
 });
 
