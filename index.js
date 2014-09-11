@@ -8,9 +8,14 @@ app.get('/', function(req, res){
 
 // listen on connection event for incoming sockets
 io.on('connection', function(socket){
-  // on incoming 'chat message' event, console.log message
+  socket.on('join', function(username){
+    // set username associated with a client
+    socket.username = username;
+  });
+  // on incoming 'chat message' event, send message
   socket.on('chat message', function(msg){
-    io.emit('chat message', msg);
+    // print username of client with broadcasting message
+    io.emit('chat message', socket.username + ': ' + msg);
   });
 });
 

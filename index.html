@@ -55,6 +55,12 @@
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
     var socket = io();
+    socket.on('connect', function(data){
+      username = prompt('What is your name?');
+      socket.emit('join', username);  // notify server of username
+      $('#messages').append($('<li>').text(username + ' has joined the chat.'));
+    })
+
     // emit 'chat message' event when form is submitted
     $('form').submit(function() {
       socket.emit('chat message', $('#msg').val());
